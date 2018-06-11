@@ -24,11 +24,21 @@ function isBadPost(post) {
     return false;
 }
 
+function makeMinimizable(post) {
+    if (post.parentElement.getAttribute('class') === 'minimizeButton') {
+        return;
+    }
+    var minimizeButton = document.createElement('DIV');
+    minimizeButton.setAttribute('class', 'minimizeButton');
+    minimizeButton.appendChild(post.cloneNode(true));
+    post.parentNode.replaceChild(minimizeButton, post);
+}
+
 var obs = new MutationObserver(function(mutations, observer) {
     var posts = mutations[0].addedNodes;
     for (var i = 0; i < posts.length; i++) {
         var post = Array.from(document.getElementsByClassName('userContentWrapper'));
-        post.filter(isBadPost).forEach(x => x.remove());
+        post.filter(isBadPost).forEach(x => makeMinimizable(x));
     }
 });
 
