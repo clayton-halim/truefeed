@@ -11,6 +11,7 @@ function isBadPost(post) {
                         /posted in \d groups/,
                         'commented on a post',
                         'reacted to this',
+                        'liked this',
                         'was tagged in a photo'];
 
     for (var i = 0, n = bad_contexts.length; i < n; i++) {
