@@ -5,7 +5,8 @@
   "content_scripts": [
     {
       "matches": ["https://*.facebook.com/*"],
-      "js": ["filter.js"]
+      "js": ["filter.js"],
+      "css": ["filter-style.css"]
     }
   ],
   "browser_action": {
