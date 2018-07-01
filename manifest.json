@@ -6,7 +6,7 @@
     {
       "matches": ["https://*.facebook.com/*"],
       "js": ["filter.js"],
-      "css": ["filter-style.css"]
+      "css": ["style.css"]
     }
   ],
   "browser_action": {
