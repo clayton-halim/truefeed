@@ -1,9 +1,10 @@
 function save_options() {
-    var color = document.getElementById('color').value;
-    var likesColor = document.getElementById('like').checked;
     chrome.storage.sync.set({
-        favoriteColor: color,
-        likesColor: likesColor
+        "filterTag": document.getElementById('check-tag').checked,
+        "filterComment": document.getElementById('check-comment').checked,
+        "filterReply": document.getElementById('check-reply').checked,
+        "filterReaction": document.getElementById('check-reaction').checked,
+        "filterGroup": document.getElementById('check-group').checked
     }, function() {
         var status = document.getElementById('status');
         status.textContent = 'Options saved.';
@@ -15,11 +16,17 @@ function save_options() {
 
 function restore_options() {
     chrome.storage.sync.get({
-        favoriteColor: 'red',
-        likesColor: true
+        "filterTag": true,
+        "filterComment": true,
+        "filterReply": true,
+        "filterReaction": true,
+        "filterGroup": true
     }, function(items) {
-        document.getElementById('color').value = items.favoriteColor;
-        document.getElementById('like').checked = items.likesColor;
+        document.getElementById('check-tag').checked = items.filterTag;
+        document.getElementById('check-comment').checked = items.filterComment;
+        document.getElementById('check-reply').checked = items.filterReply;
+        document.getElementById('check-reaction').checked = items.filterReaction;
+        document.getElementById('check-group').checked = items.filterReaction;
     });
 }
 

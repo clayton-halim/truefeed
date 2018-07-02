@@ -1,19 +1,9 @@
 function isBadPost(post) {
     var html = post.innerText;
-    var bad_contexts = ['was tagged in this.',
-                        'commented on this',
-                        'replied to a comment',
-                        /added \d comments on/,
-                        'replied to a post',
-                        'was tagged in this',
-                        /posted in \d groups/,
-                        'commented on a post',
-                        'reacted to this',
-                        'liked this',
-                        'was tagged in a photo'];
 
     for (var i = 0, n = bad_contexts.length; i < n; i++) {
         if (html.search(bad_contexts[i]) != -1) {
+            console.log(bad_contexts[i]);
             return true;
         }
     }
@@ -53,5 +43,42 @@ var obs = new MutationObserver(function(mutations, observer) {
     }
 });
 
+var bad_contexts = [];
+
+chrome.storage.sync.get({
+       "filterTag": true,
+       "filterComment": true,
+       "filterReply": true,
+       "filterReaction": true,
+       "filterGroup": true
+   }, function(items) {
+       if (items.filterTag) {
+            bad_contexts.push('was tagged in this');
+            bad_contexts.push('was tagged in a photo');
+            bad_contexts.push(/was tagged in \d photos/); 
+       }
+
+       if (items.filterComment) {
+            console.log("checked_comment pushed");
+            bad_contexts.push('commented on this');
+            bad_contexts.push('commented on a post');
+            bad_contexts.push(/added \d comments on/);
+       }
+
+       if (items.filterReply) {
+            bad_contexts.push('replied to a comment');
+            bad_contexts.push('replied to a post');
+       }
+
+       if (items.filterReaction) {
+            bad_contexts.push('reacted to this');
+            bad_contexts.push('liked this');
+       }
+
+       if (items.filterGroup) {
+            bad_contexts.push(/posted in \d groups/);
+       }
+   });
+   
 obs.observe(document.body, { childList: true, subtree: true, attributes: false, characterData: false });
 
