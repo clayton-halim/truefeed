@@ -11,30 +11,6 @@ function isBadPost(post) {
     return false;
 }
 
-function toggleHide(post) {
-    var children = post.children;
-    console.log(children);
-    for (var i = 0; i < children.length; ++i) {
-        if (children[i].style.display !== 'none') {
-            children[i].style.display = 'none';
-        } else {
-            children[i].style.display = '';
-        }
-    }
-}
-
-function makeMinimizable(post) {
-    if (post.parentElement.getAttribute('class') === 'minimizeButton') {
-        return;
-    }
-    var minimizeButton = document.createElement('DIV');
-    minimizeButton.setAttribute('class', 'minimizeButton');
-    minimizeButton.appendChild(post.cloneNode(true));
-    minimizeButton.addEventListener("click", function() { toggleHide(minimizeButton) });
-    post.parentNode.replaceChild(minimizeButton, post);
-    toggleHide(minimizeButton);
-}
-
 var obs = new MutationObserver(function(mutations, observer) {
     var posts = mutations[0].addedNodes;
     for (var i = 0; i < posts.length; i++) {
