@@ -46,36 +46,37 @@ var obs = new MutationObserver(function(mutations, observer) {
 var bad_contexts = [];
 
 chrome.storage.sync.get({
-       "filterTag": true,
-       "filterComment": true,
-       "filterReply": true,
-       "filterReaction": true,
-       "filterGroup": true
+       "check-tag": true,
+       "check-comment": true,
+       "check-reply": true,
+       "check-reaction": true,
+       "check-group": true
    }, function(items) {
-       if (items.filterTag) {
+       
+       if (items['check-tag']) {
             bad_contexts.push('was tagged in this');
             bad_contexts.push('was tagged in a photo');
             bad_contexts.push(/was tagged in \d photos/); 
        }
 
-       if (items.filterComment) {
+       if (items['check-comment']) {
             console.log("checked_comment pushed");
             bad_contexts.push('commented on this');
             bad_contexts.push('commented on a post');
             bad_contexts.push(/added \d comments on/);
        }
 
-       if (items.filterReply) {
+       if (items['check-reply']) {
             bad_contexts.push('replied to a comment');
             bad_contexts.push('replied to a post');
        }
 
-       if (items.filterReaction) {
+       if (items['check-reaction']) {
             bad_contexts.push('reacted to this');
             bad_contexts.push('liked this');
        }
 
-       if (items.filterGroup) {
+       if (items['check-group']) {
             bad_contexts.push(/posted in \d groups/);
        }
    });
