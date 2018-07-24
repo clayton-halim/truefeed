@@ -33,6 +33,7 @@ chrome.storage.sync.get({
             bad_contexts.push('was tagged in this');
             bad_contexts.push('was tagged in a photo');
             bad_contexts.push(/was tagged in \d photos/); 
+            bad_contexts.push(/were tagged in \d photos/); 
        }
 
        if (items['check-comment']) {
