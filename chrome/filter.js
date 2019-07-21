@@ -38,6 +38,7 @@ chrome.storage.sync.get({
 
        if (items['check-comment']) {
             console.log("checked_comment pushed");
+            bad_contexts.push('commented');
             bad_contexts.push('commented on this');
             bad_contexts.push('commented on a post');
             bad_contexts.push(/added \d comments on/);
